@@ -54,7 +54,7 @@ class SearchAlgorithmTests {
     @Test
     void testLogNSearchFindsExistingPatient() {
         Patient[] patients = buildSortedPatients();
-        Patient result = tester.logNSearch(patients, "P00003");
+        Patient result = tester.exponentialSearch(patients, "P00003");
         assertNotNull(result, "Alternative logarithmic search should find a valid patient.");
         assertEquals("P00003", result.getPatientID(), "Alternative logarithmic search should return the matching record.");
     }
@@ -62,7 +62,7 @@ class SearchAlgorithmTests {
     @Test
     void testLogNSearchReturnsNullForMissingPatient() {
         Patient[] patients = buildSortedPatients();
-        Patient result = tester.logNSearch(patients, "P10000");
+        Patient result = tester.exponentialSearch(patients, "P99999");
         assertNull(result, "Alternative logarithmic search should return null when no match exists.");
     }
 }

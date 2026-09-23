@@ -8,6 +8,26 @@ public class Main {
         // TODO REQUIRED: Sort the data by patientID when needed.
         // TODO REQUIRED: Run each search method and print a found and not-found example.
         // TODO OPTIONAL: Call timeDemo() to compare algorithm runtimes.
+            Patient[] patients = generatePatients(10);
+
+        EfficiencyTester tester = new EfficiencyTester();
+
+        sortByPatientId(patients);
+
+        System.out.println("Linear search:");
+        System.out.println(tester.linearSearch(patients, "P00005"));
+        System.out.println(tester.linearSearch(patients, "P99999"));
+
+        System.out.println("\nBinary search:");
+        System.out.println(tester.binarySearch(patients, "P00005"));
+        System.out.println(tester.binarySearch(patients, "P99999"));
+
+        System.out.println("\nExponential search:");
+        System.out.println(tester.exponentialSearch(patients, "P00007"));
+        System.out.println(tester.exponentialSearch(patients, "P99999"));
+
+        System.out.println("\nTiming comparison:");
+        tester.timeDemo();
     }
 
     /**
@@ -17,8 +37,17 @@ public class Main {
      * and triage information so you can test each search method.
      */
     public static Patient[] generatePatients(int count) {
+        Patient[] patients = new Patient[count];
+        for (int i = 0; i < count; i++) {
+            patients[i] = new Patient(
+                String.format("P%05d", i + 1),
+                "First" + (i + 1), "Last" + (i + 1),
+                20 + i, "Who cares?", 3, "Waiting",
+                "Room" + (i + 1), 10 + i, "INS" + (i + 1)
+            );
+        }
         // TODO REQUIRED: Create the patient array and fill it with sample data.
-        return null; // Replace this with your implementation.
+        return patients; // Replace this with your implementation.
     }
 
     /**
@@ -27,6 +56,17 @@ public class Main {
      * The binary-search version only works on an array sorted by patientID.
      */
     public static Patient[] sortByPatientId(Patient[] patients) {
+        for (int i = 0; i < patients.length; i++) {
+            int minIndex = i; 
+            for (int j = i + 1; j < patients.length; j++) {
+                if (patients[j].getPatientID().compareTo(patients[minIndex].getPatientID()) < 0) {
+                    minIndex = j;
+                }
+            }
+            Patient temp = patients[i]; 
+            patients[i] = patients[minIndex];
+            patients[minIndex] = temp;
+        }
         // TODO REQUIRED: Sort the array by patientID before testing binary search.
         return patients; // Replace this with your implementation.
     }
