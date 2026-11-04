@@ -1,20 +1,20 @@
 package staff_assignment;
 
 public class StaffMember implements Comparable<StaffMember> {
-    private final String staffId;
+    private final String staffID;
     private final String name;
     private final Seniority seniority;
     private int caseLoad;
 
-    public StaffMember(String staffId, String name, Seniority seniority) {
-        this.staffId = staffId;
+    public StaffMember(String staffID, String name, Seniority seniority) {
+        this.staffID = staffID;
         this.name = name;
         this.seniority = seniority;
         this.caseLoad = 0;
     }
 
-    public String getStaffId() {
-        return staffId;
+    public String getStaffID() {
+        return staffID;
     }
 
     public String getName() {
@@ -34,14 +34,18 @@ public class StaffMember implements Comparable<StaffMember> {
         this.caseLoad = caseLoad;
     }
 
-    // TODO: Order by caseLoad (lowest first), then by staffId to break ties.
-    @Override
-    public int compareTo(StaffMember other) {
-        return 0;
+// Order by caseLoad (lowest first), then by staffId to break ties.
+@Override
+public int compareTo(StaffMember other) {
+    int loadComparison = Integer.compare(this.caseLoad, other.caseLoad);
+    
+    if (loadComparison != 0) {
+        return loadComparison;
     }
-
+    return this.staffID.compareTo(other.staffID);
+}
     @Override
     public String toString() {
-        return name + " (" + staffId + ", " + seniority + ", load " + caseLoad + ")";
+        return name + " (" + staffID + ", " + seniority + ", load " + caseLoad + ")";
     }
 }

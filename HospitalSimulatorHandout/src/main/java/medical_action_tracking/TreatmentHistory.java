@@ -13,6 +13,13 @@ public class TreatmentHistory {
         allRecords.push(record);
     }
 
+
+    public void addTreatment(String patientID, String treatment, String timestamp, String performedBy) {
+        // This is a small worked example: create the record, then push it on the stack.
+        TreatmentRecord record = new TreatmentRecord(patientID, treatment, timestamp, performedBy);
+        allRecords.push(record);
+    }
+
     /**
      * Remove and return the newest record in the hospital-wide log.
      *
@@ -28,5 +35,10 @@ public class TreatmentHistory {
      */
     public String displayHistory() {
         return allRecords.toString();
+    }
+
+
+    public void addRecord(TreatmentRecord record) {
+        allRecords.push(record);
     }
 }
